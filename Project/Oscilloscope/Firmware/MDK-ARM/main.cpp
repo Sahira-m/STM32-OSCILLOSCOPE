@@ -177,7 +177,7 @@ int main(void)
 	  MX_TIM4_Init();	
 	
 		HAL_UART_Init(&huart2);
-		printf("hello \n");
+	
 		
 		static uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 		CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
@@ -315,7 +315,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, 0, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PA10 */
   GPIO_InitStruct.Pin = GPIO_PIN_10;
