@@ -1,41 +1,4 @@
-/******************************************************************************
- *
- * @brief     This file is part of the TouchGFX 4.6.0 evaluation distribution.
- *
- * @author    Draupner Graphics A/S <http://www.touchgfx.com>
- *
- ******************************************************************************
- *
- * @section Copyright
- *
- * This file is free software and is provided for example purposes. You may
- * use, copy, and modify within the terms and conditions of the license
- * agreement.
- *
- * This is licensed software for evaluation use, any use must strictly comply
- * with the evaluation license agreement provided with delivery of the
- * TouchGFX software.
- *
- * The evaluation license agreement can be seen on www.touchgfx.com
- *
- * @section Disclaimer
- *
- * DISCLAIMER OF WARRANTY/LIMITATION OF REMEDIES: Draupner Graphics A/S has
- * no obligation to support this software. Draupner Graphics A/S is providing
- * the software "AS IS", with no express or implied warranties of any kind,
- * including, but not limited to, any implied warranties of merchantability
- * or fitness for any particular purpose or warranties against infringement
- * of any proprietary rights of a third party.
- *
- * Draupner Graphics A/S can not be held liable for any consequential,
- * incidental, or special damages, or any other relief, or for any claim by
- * any third party, arising from your use of this software.
- *
- *****************************************************************************/
 
-/*
- * Include Section
- */
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/hal/BoardConfiguration.hpp>
 
@@ -137,6 +100,7 @@ static void ADCTask(void* params)
 {	
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_chn1_buffer, 1000);	
 	HAL_ADC_Start_DMA(&hadc3, (uint32_t*)adc_chn2_buffer, 1000);
+  //Enables ADC DMA request after last transfer (Single-ADC mode) and enables ADC peripheral.
 	
 	HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_2);
 	HAL_TIM_OC_Start(&htim4, TIM_CHANNEL_4);
@@ -177,7 +141,7 @@ int main(void)
 	  MX_TIM4_Init();	
 	
 		HAL_UART_Init(&huart2);
-	
+	//UART used for inter process communication
 		
 		static uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 		CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
@@ -214,15 +178,15 @@ static void MX_ADC1_Init(void)
   hadc1.Instance = ADC1;
   hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
-  hadc1.Init.ScanConvMode = DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
-  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ScanConvMode = DISABLE;//SCAN CONVERSION MODE
+  hadc1.Init.ContinuousConvMode = DISABLE; //SCAN CONTINUOUS CONVERSION MODE
+  hadc1.Init.DiscontinuousConvMode = DISABLE;//SCAN DISCONTINUOS CONVERSION MODE
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_RISING;
   hadc1.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T2_CC2;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 1;
   hadc1.Init.DMAContinuousRequests = ENABLE;
-  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;//ADC CONFIGURATION
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
   {
     Error_Handler();

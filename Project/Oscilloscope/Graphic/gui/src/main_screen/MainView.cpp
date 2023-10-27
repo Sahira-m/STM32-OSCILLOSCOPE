@@ -42,7 +42,7 @@
 
 #include <gui/main_screen/MainView.hpp>
 #include <touchgfx\Color.hpp>
-#include <BitmapDatabase.hpp>
+//#include <BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 #include <math.h>
 #include <stdlib.h>
